@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>126 entidades en la mira — Propuesta fiscal 2026-2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rojo: #D62828;
+  --rojo-oscuro: #8B0000;
+  --negro: #0A0A0A;
+  --gris-oscuro: #141414;
+  --gris-medio: #1E1E1E;
+  --gris-claro: #2A2A2A;
+  --texto: #E8E8E0;
+  --texto-suave: #888880;
+  --amarillo: #F2C94C;
+  --borde: rgba(255,255,255,0.07);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--negro);
+  color: var(--texto);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 6rem 6vw 4rem;
+  position: relative;
+  border-bottom: 1px solid var(--borde);
+}
+
+.hero-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--rojo);
+  margin-bottom: 2rem;
+  animation: fadeUp 0.6s ease both;
+}
+
+.hero-numero {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(120px, 20vw, 280px);
+  line-height: 0.85;
+  color: var(--texto);
+  letter-spacing: -2px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+.hero-numero span {
+  color: var(--rojo);
+}
+
+.hero-subtitulo {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(13px, 1.8vw, 18px);
+  color: var(--texto-suave);
+  max-width: 600px;
+  margin-top: 2rem;
+  line-height: 1.8;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-subtitulo strong {
+  color: var(--texto);
+  font-weight: 500;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  line-height: 1;
+  color: var(--amarillo);
+}
+
+.stat-lbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+  margin-top: 4px;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 6vw;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+  animation: pulse 2s infinite;
+}
+
+/* GRID DE LOGOS / ENTIDADES */
+.section {
+  padding: 5rem 6vw;
+  border-bottom: 1px solid var(--borde);
+}
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--rojo);
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 6vw, 72px);
+  line-height: 1;
+  margin-bottom: 3rem;
+  letter-spacing: 1px;
+}
+
+/* FILTROS */
+.filtros {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.filtro-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  padding: 6px 16px;
+  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: transparent;
+  color: var(--texto-suave);
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+
+.filtro-btn:hover { border-color: rgba(255,255,255,0.4); color: var(--texto); }
+.filtro-btn.activo { background: var(--rojo); border-color: var(--rojo); color: #fff; }
+.filtro-btn.activo-priv { background: #B45309; border-color: #B45309; color: #fff; }
+.filtro-btn.activo-trans { background: #1D6A8C; border-color: #1D6A8C; color: #fff; }
+.filtro-btn.activo-fus { background: #2D6A4F; border-color: #2D6A4F; color: #fff; }
+.filtro-btn.activo-liq { background: #6B21A8; border-color: #6B21A8; color: #fff; }
+
+/* TARJETAS DE ENTIDADES */
+.entidades-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--borde);
+  border: 1px solid var(--borde);
+}
+
+.entidad-card {
+  background: var(--gris-oscuro);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: background 0.2s;
+  cursor: default;
+}
+
+.entidad-card:hover { background: var(--gris-medio); }
+
+.entidad-logo-placeholder {
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.tag-elim { background: rgba(214,40,40,0.15); color: #F87171; }
+.tag-priv { background: rgba(180,83,9,0.15); color: #FBBF24; }
+.tag-trans { background: rgba(29,106,140,0.15); color: #7DD3FC; }
+.tag-fus { background: rgba(45,106,79,0.15); color: #6EE7B7; }
+.tag-liq { background: rgba(107,33,168,0.15); color: #C4B5FD; }
+
+.logo-elim { background: rgba(214,40,40,0.12); color: #F87171; }
+.logo-priv { background: rgba(180,83,9,0.12); color: #FBBF24; }
+.logo-trans { background: rgba(29,106,140,0.12); color: #7DD3FC; }
+.logo-fus { background: rgba(45,106,79,0.12); color: #6EE7B7; }
+.logo-liq { background: rgba(107,33,168,0.12); color: #C4B5FD; }
+
+.entidad-nombre {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--texto);
+  line-height: 1.4;
+  flex: 1;
+}
+
+.entidad-accion {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  align-self: flex-start;
+}
+
+.entidad-sector {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--texto-suave);
+}
+
+/* BARRA DE RESUMEN */
+.resumen-barra {
+  display: flex;
+  gap: 0;
+  height: 8px;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+
+.barra-seg { transition: flex 0.4s; }
+
+/* SECCIÓN PRESUPUESTO */
+.presup-list { display: flex; flex-direction: column; gap: 1px; background: var(--borde); border: 1px solid var(--borde); }
+
+.presup-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--gris-oscuro);
+  padding: 0.9rem 1.25rem;
+  transition: background 0.15s;
+}
+.presup-row:hover { background: var(--gris-medio); }
+.presup-row.header { background: var(--negro); font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-suave); }
+
+.presup-nombre { font-size: 13px; font-weight: 400; }
+.presup-val { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--amarillo); white-space: nowrap; }
+.presup-ahorro { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--rojo); white-space: nowrap; }
+.presup-bar-wrap { width: 100px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; }
+.presup-bar-fill { height: 100%; background: var(--rojo); border-radius: 2px; }
+
+/* FOOTER */
+footer {
+  padding: 3rem 6vw;
+  border-top: 1px solid var(--borde);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+footer p { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--texto-suave); }
+
+/* TICKER */
+.ticker-wrap {
+  overflow: hidden;
+  background: var(--rojo);
+  padding: 10px 0;
+  white-space: nowrap;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 60s linear infinite;
+}
+.ticker-item {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 0 3rem;
+}
+.ticker-item::before { content: "//  "; opacity: 0.5; }
+
+/* ANIMACIONES */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .hero-stats { gap: 1.5rem; }
+  .stat-val { font-size: 36px; }
+  .presup-row { grid-template-columns: 1fr auto; }
+  .presup-ahorro { display: none; }
+}
+
+/* CONTADOR VISIBLE */
+.counter-band {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+.counter-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 1px;
+  opacity: 0.7;
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Propuesta fiscal Colombia 2026–2027</p>
+  <div class="hero-numero"><span>126</span><br>ENTIDADES</div>
+  <p class="hero-subtitulo">
+    La propuesta de <strong>Abelardo de la Espriella</strong> plantea eliminar, privatizar, fusionar o liquidar
+    <strong>126 instituciones</strong> del Estado colombiano para lograr un ahorro de
+    <strong>$20,7 billones de pesos</strong>.
+  </p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-val">44</span><span class="stat-lbl">A privatizar</span></div>
+    <div class="stat"><span class="stat-val">37</span><span class="stat-lbl">A eliminar</span></div>
+    <div class="stat"><span class="stat-val">32</span><span class="stat-lbl">A transferir</span></div>
+    <div class="stat"><span class="stat-val">12</span><span class="stat-lbl">A fusionar</span></div>
+    <div class="stat"><span class="stat-val">$20,7B</span><span class="stat-lbl">COP en recorte</span></div>
+  </div>
+  <p class="scroll-hint">↓ Explorar entidades</p>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner" id="ticker"></div>
+</div>
+
+<!-- SECCIÓN ENTIDADES -->
+<section class="section">
+  <p class="section-label">Directorio completo</p>
+  <h2 class="section-title">Las 126<br>entidades</h2>
+
+  <!-- Barra visual de proporción -->
+  <div class="resumen-barra">
+    <div class="barra-seg" style="flex:44;background:#B45309"></div>
+    <div class="barra-seg" style="flex:37;background:#D62828"></div>
+    <div class="barra-seg" style="flex:32;background:#1D6A8C"></div>
+    <div class="barra-seg" style="flex:12;background:#2D6A4F"></div>
+    <div class="barra-seg" style="flex:1;background:#6B21A8"></div>
+  </div>
+
+  <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--texto-suave)">
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:#B45309;border-radius:1px"></span>Privatizar (44)</span>
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:#D62828;border-radius:1px"></span>Eliminar (37)</span>
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:#1D6A8C;border-radius:1px"></span>Transferir (32)</span>
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:#2D6A4F;border-radius:1px"></span>Fusionar (12)</span>
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:#6B21A8;border-radius:1px"></span>Liquidar (1)</span>
+  </div>
+
+  <div class="filtros">
+    <button class="filtro-btn activo" onclick="filtrar('all',this)">Todas (126)</button>
+    <button class="filtro-btn" onclick="filtrar('Privatizar',this,'activo-priv')">Privatizar (44)</button>
+    <button class="filtro-btn" onclick="filtrar('Eliminar',this,'activo')">Eliminar (37)</button>
+    <button class="filtro-btn" onclick="filtrar('Transferir',this,'activo-trans')">Transferir (32)</button>
+    <button class="filtro-btn" onclick="filtrar('Fusionar',this,'activo-fus')">Fusionar (12)</button>
+    <button class="filtro-btn" onclick="filtrar('Liquidar',this,'activo-liq')">Liquidar (1)</button>
+  </div>
+
+  <div class="entidades-grid" id="grid"></div>
+</section>
+
+<!-- SECCIÓN PRESUPUESTO -->
+<section class="section">
+  <p class="section-label">Impacto fiscal (Billones COP)</p>
+  <h2 class="section-title">Presupuesto<br>en juego</h2>
+  <p style="font-size:13px;color:var(--texto-suave);max-width:600px;margin-bottom:2.5rem;font-family:'IBM Plex Mono',monospace">Las 49 entidades del Anexo 2 para las que se reporta presupuesto. Ordenadas por ahorro propuesto.</p>
+
+  <div class="presup-list">
+    <div class="presup-row header">
+      <span>Entidad</span>
+      <span>Presupuesto actual</span>
+      <span>Ahorro propuesto</span>
+    </div>
+    <div id="presup-rows"></div>
+  </div>
+</section>
+
+<!-- CONTEXTO -->
+<section class="section">
+  <p class="section-label">Contexto</p>
+  <h2 class="section-title">¿Qué significa<br>esto?</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--borde);border:1px solid var(--borde);">
+    <div style="background:var(--gris-oscuro);padding:2rem">
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--rojo);margin-bottom:1rem">BANCA PÚBLICA</p>
+      <p style="font-size:13px;color:var(--texto-suave);line-height:1.7">Banco Agrario, Bancóldex, FINAGRO y el Fondo Nacional del Ahorro serían privatizados. Son las entidades que financian a campesinos, microempresarios y familias sin acceso a la banca tradicional.</p>
+    </div>
+    <div style="background:var(--gris-oscuro);padding:2rem">
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--amarillo);margin-bottom:1rem">ENERGÍA REGIONAL</p>
+      <p style="font-size:13px;color:var(--texto-suave);line-height:1.7">Las electrificadoras de Nariño, Cauca, Caquetá, Huila, el Pacífico y San Andrés pasarían a manos privadas. En zonas sin rentabilidad comercial, ¿quién garantiza el servicio?</p>
+    </div>
+    <div style="background:var(--gris-oscuro);padding:2rem">
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#7DD3FC;margin-bottom:1rem">PAZ Y VÍCTIMAS</p>
+      <p style="font-size:13px;color:var(--texto-suave);line-height:1.7">La JEP perdería el 90% de su presupuesto. La Unidad para las Víctimas sería eliminada. El Centro de Memoria Histórica se transferiría a una ONG voluntaria.</p>
+    </div>
+    <div style="background:var(--gris-oscuro);padding:2rem">
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#6EE7B7;margin-bottom:1rem">EMERGENCIAS</p>
+      <p style="font-size:13px;color:var(--texto-suave);line-height:1.7">La UNGRD (Gestión del Riesgo de Desastres) desaparecería como entidad independiente. La Superintendencia de Servicios Públicos también sería eliminada.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Fuente: Política de Balance Fiscal 2026–2027 — Propuesta de Abelardo de la Espriella</p>
+  <p>Datos del documento oficial · Información pública</p>
+</footer>
+
+<script>
+const entidades = [
+  {n:"Departamento Administrativo de la Presidencia",t:"Transferir",s:"Gobierno"},
+  {n:"ITRC — Inspector General de Tributos",t:"Transferir",s:"Tributaria"},
+  {n:"Administradora del Monopolio de Juegos",t:"Eliminar",s:"Gobierno"},
+  {n:"Banco Agrario de Colombia",t:"Privatizar",s:"Banca pública"},
+  {n:"Fiduciaria de Desarrollo Agropecuario",t:"Privatizar",s:"Banca pública"},
+  {n:"Bancóldex — Banco de Comercio Exterior",t:"Privatizar",s:"Banca pública"},
+  {n:"Fondo Nacional del Ahorro",t:"Privatizar",s:"Banca pública"},
+  {n:"FINAGRO",t:"Privatizar",s:"Banca pública"},
+  {n:"Fondo Nacional de Garantías",t:"Privatizar",s:"Banca pública"},
+  {n:"La Previsora S.A. Cía. de Seguros",t:"Privatizar",s:"Seguros"},
+  {n:"Positiva Compañía de Seguros",t:"Privatizar",s:"Seguros"},
+  {n:"Empresa Nacional Promotora del Desarrollo Territorial",t:"Privatizar",s:"Desarrollo"},
+  {n:"Fiduciaria Colombiana de Comercio Exterior",t:"Privatizar",s:"Banca pública"},
+  {n:"Fiduciaria La Previsora",t:"Privatizar",s:"Banca pública"},
+  {n:"Financiera de Desarrollo Nacional (FDN)",t:"Privatizar",s:"Banca pública"},
+  {n:"Findeter — Financiera de Desarrollo Territorial",t:"Privatizar",s:"Banca pública"},
+  {n:"Central de Inversiones SA",t:"Privatizar",s:"Banca pública"},
+  {n:"Sociedad Hotelera Tequendama",t:"Transferir",s:"Turismo"},
+  {n:"SATENA",t:"Privatizar",s:"Transporte"},
+  {n:"VECOL S.A. — Productos Veterinarios",t:"Privatizar",s:"Agro"},
+  {n:"Central de Abastos de Cúcuta (en liquidación)",t:"Liquidar",s:"Comercio"},
+  {n:"Oleoducto Central S.A.",t:"Privatizar",s:"Energía"},
+  {n:"Oleoducto de Colombia S.A.",t:"Privatizar",s:"Energía"},
+  {n:"CENIT — Transporte y Logística de Hidrocarburos",t:"Privatizar",s:"Energía"},
+  {n:"CEDENAR — Centrales Eléctricas de Nariño",t:"Privatizar",s:"Energía"},
+  {n:"CEDELCA — Centrales Eléctricas del Cauca",t:"Privatizar",s:"Energía"},
+  {n:"Electrificadora del Caquetá",t:"Privatizar",s:"Energía"},
+  {n:"Electrificadora del Huila",t:"Privatizar",s:"Energía"},
+  {n:"Electrificadora del Meta",t:"Privatizar",s:"Energía"},
+  {n:"Empresa de Energía de San Andrés (EEDAS)",t:"Privatizar",s:"Energía"},
+  {n:"DISPAC — Distribuidora del Pacífico",t:"Privatizar",s:"Energía"},
+  {n:"Generadora y Comercializadora del Caribe",t:"Privatizar",s:"Energía"},
+  {n:"Gestión Energética S.A. (GENSA)",t:"Privatizar",s:"Energía"},
+  {n:"ISA — Interconexión Eléctrica S.A.",t:"Privatizar",s:"Energía"},
+  {n:"Empresa URRÁ S.A.",t:"Privatizar",s:"Energía"},
+  {n:"Canal Regional Telecaribe",t:"Privatizar",s:"Medios"},
+  {n:"Canal Regional Teveandina",t:"Privatizar",s:"Medios"},
+  {n:"Colombia Telecomunicaciones (Movistar col.)",t:"Privatizar",s:"Medios"},
+  {n:"Sociedad de Televisión de las Islas",t:"Privatizar",s:"Medios"},
+  {n:"RTVC — Radio y TV Nacional de Colombia",t:"Privatizar",s:"Medios"},
+  {n:"Servicios Postales Nacionales 4-72",t:"Privatizar",s:"Comunicaciones"},
+  {n:"Centro Diagnóstico Automotor Cúcuta",t:"Privatizar",s:"Transporte"},
+  {n:"Centro Diagnóstico Automotor Caldas",t:"Privatizar",s:"Transporte"},
+  {n:"FOGACOOP — Garantías Cooperativas",t:"Fusionar",s:"Finanzas"},
+  {n:"FOGAFIN — Garantías Instituciones Financieras",t:"Eliminar",s:"Finanzas"},
+  {n:"URF — Unidad de Proyección Normativa",t:"Eliminar",s:"Hacienda"},
+  {n:"Corporación Colombia Internacional",t:"Eliminar",s:"Comercio"},
+  {n:"AGROSAVIA — Investigación Agropecuaria",t:"Transferir",s:"Agro"},
+  {n:"Caja de Compensación Familiar Campesina",t:"Eliminar",s:"Social"},
+  {n:"UPRA — Unidad de Planificación de Tierras",t:"Eliminar",s:"Agro"},
+  {n:"ESE Centro Dermatológico Federico Lleras",t:"Transferir",s:"Salud"},
+  {n:"Hospital Universitario San Juan de Dios",t:"Transferir",s:"Salud"},
+  {n:"Sanatorio de Agua de Dios",t:"Fusionar",s:"Salud"},
+  {n:"ICFES",t:"Eliminar",s:"Educación"},
+  {n:"FODESEP — Fondo de Desarrollo de Educación Superior",t:"Fusionar",s:"Educación"},
+  {n:"Instituto Nacional de Vías Regionales",t:"Fusionar",s:"Infraestructura"},
+  {n:"Unidad de Planeación de Infraestructura de Transporte",t:"Eliminar",s:"Infraestructura"},
+  {n:"CRIT — Comisión de Regulación de Infraestructura",t:"Eliminar",s:"Infraestructura"},
+  {n:"ANLA — Autoridad Nacional de Licencias Ambientales",t:"Eliminar",s:"Ambiente"},
+  {n:"Instituto Alexander Von Humboldt",t:"Transferir",s:"Ciencia"},
+  {n:"SINCHI — Instituto Amazónico de Investigaciones",t:"Transferir",s:"Ciencia"},
+  {n:"INVEMAR — Investigaciones Marinas y Costeras",t:"Transferir",s:"Ciencia"},
+  {n:"Instituto de Investigaciones Ambientales del Pacífico",t:"Transferir",s:"Ciencia"},
+  {n:"Proimágenes — Fondo Mixto de Cine",t:"Eliminar",s:"Cultura"},
+  {n:"Consejo Profesional de Administración de Empresas",t:"Eliminar",s:"Profesiones"},
+  {n:"Consejo Técnico de Contaduría Pública",t:"Fusionar",s:"Profesiones"},
+  {n:"Corporación para el Desarrollo de Microempresas",t:"Eliminar",s:"Economía"},
+  {n:"Artesanías de Colombia",t:"Privatizar",s:"Cultura"},
+  {n:"Superintendencia del Subsidio Familiar",t:"Eliminar",s:"Social"},
+  {n:"Fondo de Fomento a la Economía Solidaria",t:"Eliminar",s:"Economía"},
+  {n:"Fondo para la Participación y la Democracia",t:"Transferir",s:"Gobierno"},
+  {n:"Imprenta Nacional de Colombia",t:"Eliminar",s:"Gobierno"},
+  {n:"APC — Agencia Presidencial de Cooperación",t:"Eliminar",s:"Cooperación"},
+  {n:"UNGRD — Gestión del Riesgo de Desastres",t:"Eliminar",s:"Emergencias"},
+  {n:"ARN — Reincorporación y Normalización",t:"Eliminar",s:"Paz"},
+  {n:"Agencia Nacional Inmobiliaria Virgilio Barco",t:"Eliminar",s:"Gobierno"},
+  {n:"ART — Agencia de Renovación del Territorio",t:"Eliminar",s:"Territorios"},
+  {n:"Colombia Compra Eficiente",t:"Eliminar",s:"Contratación"},
+  {n:"Superintendencia de Servicios Públicos Domiciliarios",t:"Eliminar",s:"Regulación"},
+  {n:"Fondo Rotatorio del DANE",t:"Transferir",s:"Estadística"},
+  {n:"IGAC — Instituto Geográfico Agustín Codazzi",t:"Transferir",s:"Catastro"},
+  {n:"DAFP — Función Pública",t:"Transferir",s:"Gobierno"},
+  {n:"ESAP — Escuela Superior de Administración Pública",t:"Transferir",s:"Educación"},
+  {n:"Fondo de Previsión Social del Congreso",t:"Transferir",s:"Pensiones"},
+  {n:"Fondo Rotatorio de Cancillería",t:"Transferir",s:"Exterior"},
+  {n:"Superintendencia de Notariado y Registro",t:"Eliminar",s:"Justicia"},
+  {n:"INPEC — Instituto Penitenciario y Carcelario",t:"Liquidar",s:"Justicia"},
+  {n:"USPEC — Servicios Penitenciarios",t:"Liquidar",s:"Justicia"},
+  {n:"Agencia Nacional de Defensa Jurídica del Estado",t:"Transferir",s:"Justicia"},
+  {n:"Superintendencia de la Economía Solidaria",t:"Eliminar",s:"Economía"},
+  {n:"UIAF — Análisis Financiero",t:"Transferir",s:"Finanzas"},
+  {n:"UGPPP — Gestión Pensional y Parafiscales",t:"Transferir",s:"Pensiones"},
+  {n:"Fondo Adaptación",t:"Eliminar",s:"Ambiente"},
+  {n:"Superintendencia de Vigilancia y Seguridad Privada",t:"Transferir",s:"Seguridad"},
+  {n:"AUNAP — Autoridad Nacional de Pesca",t:"Transferir",s:"Agro"},
+  {n:"Unidad de Restitución de Tierras Despojadas",t:"Transferir",s:"Paz"},
+  {n:"ANT — Agencia Nacional de Tierras",t:"Eliminar",s:"Agro"},
+  {n:"ADR — Agencia de Desarrollo Rural",t:"Eliminar",s:"Agro"},
+  {n:"Superintendencia Nacional de Salud",t:"Eliminar",s:"Salud"},
+  {n:"Fondo Pasivo Social Ferrocarriles Nacionales",t:"Transferir",s:"Pensiones"},
+  {n:"UPME — Unidad de Planeación Minero Energética",t:"Eliminar",s:"Energía"},
+  {n:"IPSE — Energía Zonas No Interconectadas",t:"Eliminar",s:"Energía"},
+  {n:"ANM — Agencia Nacional de Minería",t:"Fusionar",s:"Minería"},
+  {n:"Escuela Tecnológica Instituto Técnico Central",t:"Transferir",s:"Educación"},
+  {n:"INFOTEP San Andrés",t:"Transferir",s:"Educación"},
+  {n:"INFOTEP San Juan del Cesar",t:"Transferir",s:"Educación"},
+  {n:"Instituto Tolimense de Formación Técnica",t:"Transferir",s:"Educación"},
+  {n:"INTEC Simón Rodríguez — Cali",t:"Transferir",s:"Educación"},
+  {n:"UAE de Alimentación Escolar (PAE)",t:"Eliminar",s:"Educación"},
+  {n:"Fondo TIC",t:"Eliminar",s:"TIC"},
+  {n:"Agencia Nacional de Gobierno Digital (AND)",t:"Eliminar",s:"TIC"},
+  {n:"ANSV — Agencia Nacional de Seguridad Vial",t:"Transferir",s:"Transporte"},
+  {n:"Superintendencia de Puertos y Transporte",t:"Eliminar",s:"Transporte"},
+  {n:"UAE de Organizaciones Solidarias",t:"Eliminar",s:"Social"},
+  {n:"UAE del Servicio Público de Empleo",t:"Transferir",s:"Trabajo"},
+  {n:"DNDA — Dirección Nacional del Derecho de Autor",t:"Transferir",s:"Cultura"},
+  {n:"Corporación NASA KI WE — Río Páez",t:"Eliminar",s:"Territorios"},
+  {n:"UNP — Unidad Nacional de Protección",t:"Eliminar",s:"Seguridad"},
+  {n:"Centro de Memoria Histórica",t:"Transferir",s:"Paz"},
+  {n:"JEP — Jurisdicción Especial para la Paz",t:"Eliminar",s:"Paz"},
+  {n:"UARIV — Unidad para la Atención a Víctimas",t:"Eliminar",s:"Paz"},
+];
+
+const presup = [
+  {n:"Agencia Nacional de Tierras (ANT)",p:5.22,a:5.22},
+  {n:"Fondo TIC",p:3.46,a:3.46},
+  {n:"UARIV — Unidad para Víctimas",p:4.36,a:1.98},
+  {n:"UNP — Unidad Nacional de Protección",p:2.21,a:2.20},
+  {n:"USPEC — Servicios Penitenciarios",p:1.92,a:1.34},
+  {n:"INPEC",p:1.94,a:0.20},
+  {n:"IGAC",p:1.06,a:1.06},
+  {n:"ADR — Agencia de Desarrollo Rural",p:1.00,a:1.00},
+  {n:"Fondo Rotatorio de Cancillería",p:0.80,a:0.07},
+  {n:"JEP",p:0.67,a:0.60},
+  {n:"Fondo Pasivo Social Ferrocarriles",p:0.76,a:0.00},
+  {n:"UGPPP — Gestión Pensional",p:0.29,a:0.26},
+  {n:"ESAP",p:0.39,a:0.37},
+  {n:"Superservicios Públicos",p:0.39,a:0.27},
+  {n:"Fondo Previsión Social Congreso",p:0.41,a:0.00},
+  {n:"Superintendencia Notariado y Registro",p:0.84,a:0.08},
+  {n:"Fondo Adaptación",p:0.19,a:0.19},
+  {n:"UNGRD — Gestión del Riesgo",p:0.58,a:0.12},
+  {n:"UAE Alimentación Escolar (PAE)",p:2.11,a:0.03},
+  {n:"ARN — Reincorporación",p:0.32,a:0.05},
+].sort((a,b)=>b.a-a.a);
+
+const claseTag = {Privatizar:'tag-priv',Eliminar:'tag-elim',Transferir:'tag-trans',Fusionar:'tag-fus',Liquidar:'tag-liq'};
+const claseLogo = {Privatizar:'logo-priv',Eliminar:'logo-elim',Transferir:'logo-trans',Fusionar:'logo-fus',Liquidar:'logo-liq'};
+const labelTag = {Privatizar:'PRIVATIZAR',Eliminar:'ELIMINAR',Transferir:'TRANSFERIR',Fusionar:'FUSIONAR',Liquidar:'LIQUIDAR'};
+
+function initials(name) {
+  return name.split(/[\s\-—]+/).filter(w=>w.length>2).slice(0,2).map(w=>w[0].toUpperCase()).join('');
+}
+
+function renderGrid(filtro) {
+  const grid = document.getElementById('grid');
+  const lista = filtro === 'all' ? entidades : entidades.filter(e => e.t === filtro);
+  grid.innerHTML = lista.map(e => `
+    <div class="entidad-card">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="entidad-logo-placeholder ${claseLogo[e.t]}">${initials(e.n)}</div>
+        <div>
+          <div class="entidad-nombre">${e.n}</div>
+          <div class="entidad-sector">${e.s}</div>
+        </div>
+      </div>
+      <span class="entidad-accion ${claseTag[e.t]}">${labelTag[e.t]}</span>
+    </div>`).join('');
+}
+
+function filtrar(tipo, btn, cls) {
+  document.querySelectorAll('.filtro-btn').forEach(b => {
+    b.classList.remove('activo','activo-priv','activo-trans','activo-fus','activo-liq');
+  });
+  btn.classList.add(cls || 'activo');
+  renderGrid(tipo);
+}
+
+function renderPresup() {
+  const maxP = Math.max(...presup.map(r=>r.p));
+  document.getElementById('presup-rows').innerHTML = presup.map(r => `
+    <div class="presup-row">
+      <span class="presup-nombre">${r.n}</span>
+      <span class="presup-val">${r.p.toFixed(2)} bn</span>
+      <span class="presup-ahorro">${r.a.toFixed(2)} bn</span>
+    </div>`).join('');
+}
+
+function renderTicker() {
+  const names = entidades.map(e=>e.n);
+  const doubled = [...names,...names];
+  document.getElementById('ticker').innerHTML = doubled.map(n=>`<span class="ticker-item">${n}</span>`).join('');
+}
+
+renderGrid('all');
+renderPresup();
+renderTicker();
+</script>
+</body>
+</html>
